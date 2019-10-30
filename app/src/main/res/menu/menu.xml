@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/action_main"
+        android:orderInCategory="100"
+        android:title="主"
+        />
+
+    <item
+        android:id="@+id/action_jzzh"
+        android:orderInCategory="100"
+        android:title="进制转换"
+        />
+
+    <item
+        android:id="@+id/action_help"
+        android:orderInCategory="100"
+        android:title="help"
+        />
+
+</menu>

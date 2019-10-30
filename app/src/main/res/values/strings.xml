@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">calculate</string>
+    <string name="title_activity_land">LandActivity</string>
+    <string name="title_activity_help">HelpActivity</string>
+    <string name="title_activity_hs">HSActivity</string>
+    <string name="title_activity_jzhs">JZhsActivity</string>
 </resources>
