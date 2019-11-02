@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".JZhsActivity"
-            android:label="@string/title_activity_jzhs"
+            android:name=".DWhsActivity"
+            android:label="@string/title_activity_dwhs"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".HelpActivity"
-            android:label="@string/title_activity_help" />
-        <activity android:name=".MainActivity">
+            android:name=".JZhsActivity"
+            android:label="@string/title_activity_jzhs"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="sensor">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

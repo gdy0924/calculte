@@ -1,16 +1,19 @@
 package com.example.calculate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuView;
 
 import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,269 +26,298 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity {
 
 
+
+
+    public void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+    }
+
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button bn_jz=(Button)findViewById(R.id.action_jzzh);
-        final Button bn0 = (Button) findViewById(R.id.button0);
-        final Button bn1 = (Button) findViewById(R.id.button1);
-        final Button bn2 = (Button) findViewById(R.id.button2);
-        final Button bn3 = (Button) findViewById(R.id.button3);
-        final Button bn4 = (Button) findViewById(R.id.button4);
-        final Button bn5 = (Button) findViewById(R.id.button5);
-        final Button bn6 = (Button) findViewById(R.id.button6);
-        final Button bn7 = (Button) findViewById(R.id.button7);
-        final Button bn8 = (Button) findViewById(R.id.button8);
-        final Button bn9 = (Button) findViewById(R.id.button9);
-        final Button bn_clear = (Button) findViewById(R.id.button_clear);
-        final Button bn_del = (Button) findViewById(R.id.button_del);
-        final Button bn_div = (Button) findViewById(R.id.button_div);
-        final Button bn_mult = (Button) findViewById(R.id.button_mult);
-        final Button bn_sub = (Button) findViewById(R.id.button_sub);
-        final Button bn_sum = (Button) findViewById(R.id.button_sum);
-        final Button bn_result = (Button) findViewById(R.id.button_result);
-        final Button bn_point = (Button) findViewById(R.id.button_point);
-        final EditText editText = (EditText) findViewById(R.id.edit_text);
+                final Button bn0 = (Button) findViewById(R.id.button0);
+                final Button bn1 = (Button) findViewById(R.id.button1);
+                final Button bn2 = (Button) findViewById(R.id.button2);
+                final Button bn3 = (Button) findViewById(R.id.button3);
+                final Button bn4 = (Button) findViewById(R.id.button4);
+                final Button bn5 = (Button) findViewById(R.id.button5);
+                final Button bn6 = (Button) findViewById(R.id.button6);
+                final Button bn7 = (Button) findViewById(R.id.button7);
+                final Button bn8 = (Button) findViewById(R.id.button8);
+                final Button bn9 = (Button) findViewById(R.id.button9);
+                final Button bn_clear = (Button) findViewById(R.id.button_clear);
+                final Button bn_del = (Button) findViewById(R.id.button_del);
+                final Button bn_div = (Button) findViewById(R.id.button_div);
+                final Button bn_mult = (Button) findViewById(R.id.button_mult);
+                final Button bn_sub = (Button) findViewById(R.id.button_sub);
+                final Button bn_sum = (Button) findViewById(R.id.button_sum);
+                final Button bn_result = (Button) findViewById(R.id.button_result);
+                final Button bn_point = (Button) findViewById(R.id.button_point);
+                final EditText editText = (EditText) findViewById(R.id.edit_text);
 
-        bn_jz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent= new Intent(MainActivity.this,JZhsActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        bn0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str1 = editText.getText().toString();
-                editText.setText(str1 + bn0.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str2 = editText.getText().toString();
-                editText.setText(str2 + bn1.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str3 = editText.getText().toString();
-                editText.setText(str3 + bn2.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str4 = editText.getText().toString();
-                editText.setText(str4 + bn3.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str5 = editText.getText().toString();
-                editText.setText(str5 + bn4.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str6 = editText.getText().toString();
-                editText.setText(str6 + bn5.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str7 = editText.getText().toString();
-                editText.setText(str7 + bn6.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str8 = editText.getText().toString();
-                editText.setText(str8 + bn7.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str9 = editText.getText().toString();
-                editText.setText(str9 + bn8.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str10 = editText.getText().toString();
-                editText.setText(str10 + bn9.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn_clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str11 = "";
-                editText.setText(str11);
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn_del.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str12 = editText.getText().toString();
-                editText.setText(str12.substring(0, str12.length() - 1));
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn_div.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str13 = editText.getText().toString();
-                editText.setText(str13 + bn_div.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn_mult.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str14 = editText.getText().toString();
-                editText.setText(str14 + bn_mult.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn_sub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str15 = editText.getText().toString();
-                editText.setText(str15 + bn_sub.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn_sum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str16 = editText.getText().toString();
-                editText.setText(str16 + bn_sum.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn_point.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str18 = editText.getText().toString();
-                editText.setText(str18 + bn_point.getText().toString());
-                editText.setSelection(editText.getText().length());
-            }
-        });
-        bn_result.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String str = editText.getText().toString();
-                String result = getResult(str);
-                editText.setText(str + bn_result.getText().toString() + result);
-                editText.setSelection(editText.getText().length());
-            }
-        });
-    }
+//        bn_jz.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public boolean onOptionsItemSelected(MenuItem item){
+//                int id = item.getItemId();
+//                switch (id) {
+//                    case R.id.action_jzhs:
+//
+//                    case R.id.action_help:
+//                        Toast.makeText(this, "这是帮助。", Toast.LENGTH_SHORT).show();
+//                        break;
+//                }
+//                return super.onOptionsItemSelected(item);
+//            }
+//
+//
+//        });
 
-        private String getResult(String temp){
-        Stack<String> numStack = new Stack<String>();
-        numStack.push("#");
-        Stack<String> oprStack = new Stack<String>();
-        String[] ss= new String[temp.length()];
-        for(int i=0;i<temp.length();i++){
-            ss[i] = temp.substring(i, i+1);		}
-        for (String s : ss) {
-            if (isOpr(s)) {
-                linkString(numStack);
-                if (oprStack.isEmpty()) {
-                    oprStack.push(s);
-                } else {
-                    while (!oprStack.isEmpty()&&priority(s)<=priority(oprStack.peek())) {
-                        linkString(numStack);
-                        calculate(numStack, oprStack);
+
+
+                bn0.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str1 = editText.getText().toString();
+                        editText.setText(str1 + bn0.getText().toString());
+                        editText.setSelection(editText.getText().length());
                     }
-                    oprStack.push(s);
-                }
-            }else {
-                numStack.push(s);
-            }
-        }
-        while (!oprStack.isEmpty()) {
-            linkString(numStack);
-            calculate(numStack, oprStack);
-        }
-        numStack.pop();
-        return numStack.peek();
-    }
-    public boolean isOpr(String s){
-        if ("+".equals(s)||"-".equals(s)||"×".equals(s)||"÷".equals(s))
-        {
-            return true;
-        }
-        return false;
-    }		//判断操作符优先级
-    public int priority(String s) {
-        if ("+".equals(s)||"-".equals(s))
-        {
-            return 1;
-        } else {
-            return 2;
-        }
-    }		//将栈内单字符粘成字符串
-    public void linkString(Stack<String> stack) {
-        if (stack.peek().equals("#"))
-        {			return;
-        }
-        StringBuilder number = new StringBuilder();
-        while (true)
-        {
-            String s = stack.peek();
-            if (s.equals("#"))
-            {
-                break;
-            }
-            number.insert(0, s);
-            stack.pop();
-        }
-        stack.push(number.toString());
-        stack.push("#");
-        number.delete(0, number.length());	}
-    //计算运算式
-    public void calculate(Stack<String> numStack, Stack<String> oprStack) {
-        double res=0;		//弹出右操作数上的#并将其转为double计算
-        numStack.pop();
-        double rightNum = Double.parseDouble(numStack.pop());
-        //弹出左操作数上的#并将其转为double计算
-        numStack.pop();
-        double leftNum = Double.parseDouble(numStack.pop());
-        String opr = oprStack.pop();
-        switch(opr){
-            case "+": res = leftNum + rightNum;break;
-            case "-": res = leftNum - rightNum;break;
-            case "×": res = leftNum * rightNum;break;
-            case "÷": res = leftNum / rightNum;break;
-            default:break;		}				//将计算结果压栈
-        numStack.push(String.valueOf(res));
-        numStack.push("#");	}
+                });
+                bn1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str2 = editText.getText().toString();
+                        editText.setText(str2 + bn1.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str3 = editText.getText().toString();
+                        editText.setText(str3 + bn2.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str4 = editText.getText().toString();
+                        editText.setText(str4 + bn3.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str5 = editText.getText().toString();
+                        editText.setText(str5 + bn4.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn5.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str6 = editText.getText().toString();
+                        editText.setText(str6 + bn5.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn6.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str7 = editText.getText().toString();
+                        editText.setText(str7 + bn6.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn7.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str8 = editText.getText().toString();
+                        editText.setText(str8 + bn7.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn8.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str9 = editText.getText().toString();
+                        editText.setText(str9 + bn8.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn9.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str10 = editText.getText().toString();
+                        editText.setText(str10 + bn9.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn_clear.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str11 = "";
+                        editText.setText(str11);
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn_del.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str12 = editText.getText().toString();
+                        editText.setText(str12.substring(0, str12.length() - 1));
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn_div.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str13 = editText.getText().toString();
+                        editText.setText(str13 + bn_div.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn_mult.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str14 = editText.getText().toString();
+                        editText.setText(str14 + bn_mult.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn_sub.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str15 = editText.getText().toString();
+                        editText.setText(str15 + bn_sub.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn_sum.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str16 = editText.getText().toString();
+                        editText.setText(str16 + bn_sum.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn_point.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str18 = editText.getText().toString();
+                        editText.setText(str18 + bn_point.getText().toString());
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
+                bn_result.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String str = editText.getText().toString();
+                        String result = getResult(str);
+                        editText.setText(str + bn_result.getText().toString() + result);
+                        editText.setSelection(editText.getText().length());
+                    }
+                });
 
+            }
+
+            private String getResult (String temp){
+            Stack<String> numStack = new Stack<String>();
+            numStack.push("#");
+            Stack<String> oprStack = new Stack<String>();
+            String[] ss = new String[temp.length()];
+            for (int i = 0; i < temp.length(); i++) {
+                ss[i] = temp.substring(i, i + 1);
+            }
+            for (String s : ss) {
+                if (isOpr(s)) {
+                    linkString(numStack);
+                    if (oprStack.isEmpty()) {
+                        oprStack.push(s);
+                    } else {
+                        while (!oprStack.isEmpty() && priority(s) <= priority(oprStack.peek())) {
+                            linkString(numStack);
+                            calculate(numStack, oprStack);
+                        }
+                        oprStack.push(s);
+                    }
+                } else {
+                    numStack.push(s);
+                }
+            }
+            while (!oprStack.isEmpty()) {
+                linkString(numStack);
+                calculate(numStack, oprStack);
+            }
+            numStack.pop();
+            return numStack.peek();
+        }
+            public boolean isOpr (String s){
+            if ("+".equals(s) || "-".equals(s) || "×".equals(s) || "÷".equals(s)) {
+                return true;
+            }
+            return false;
+        }        //判断操作符优先级
+            public int priority (String s){
+            if ("+".equals(s) || "-".equals(s)) {
+                return 1;
+            } else {
+                return 2;
+            }
+        }        //将栈内单字符粘成字符串
+            public void linkString (Stack < String > stack) {
+            if (stack.peek().equals("#")) {
+                return;
+            }
+            StringBuilder number = new StringBuilder();
+            while (true) {
+                String s = stack.peek();
+                if (s.equals("#")) {
+                    break;
+                }
+                number.insert(0, s);
+                stack.pop();
+            }
+            stack.push(number.toString());
+            stack.push("#");
+            number.delete(0, number.length());
+        }
+            //计算运算式
+            public void calculate (Stack < String > numStack, Stack < String > oprStack){
+            double res = 0;        //弹出右操作数上的#并将其转为double计算
+            numStack.pop();
+            double rightNum = Double.parseDouble(numStack.pop());
+            //弹出左操作数上的#并将其转为double计算
+            numStack.pop();
+            double leftNum = Double.parseDouble(numStack.pop());
+            String opr = oprStack.pop();
+            switch (opr) {
+                case "+":
+                    res = leftNum + rightNum;
+                    break;
+                case "-":
+                    res = leftNum - rightNum;
+                    break;
+                case "×":
+                    res = leftNum * rightNum;
+                    break;
+                case "÷":
+                    res = leftNum / rightNum;
+                    break;
+                default:
+                    break;
+            }                //将计算结果压栈
+            numStack.push(String.valueOf(res));
+            numStack.push("#");
+        }
 
 
 //            private String  GetResult(String temp){
@@ -537,25 +569,37 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item)
-//    {    int id = item.getItemId();
-//        //noinspection SimplifiableIfStatement
-//        switch (id) {
-//            case R.id.action_jzzh:
-//                setContentView(R.layout.activity_jzhs);
-//                break;
-//            case R.id.action_main:
-//                setContentView(R.layout.activity_main);
-//            case R.id.action_help:
-//                Toast.makeText(this, "another", Toast.LENGTH_SHORT).show();
-//                break;
-//    }
-//        return super.onOptionsItemSelected(item);
-//    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_jzhs:
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, JZhsActivity.class);
+                startActivity(intent);
+                MainActivity.this.finish();
+                break;
+            case R.id.action_dwhs:
+                Intent intent2 = new Intent();
+                intent2.setClass(MainActivity.this, DWhsActivity.class);
+                startActivity(intent2);
+                MainActivity.this.finish();
+                break;
+            case R.id.action_help:
+                Toast.makeText(this, "这是帮助。", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_back:
+                MainActivity.this.finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }
 
