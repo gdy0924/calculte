@@ -328,6 +328,9 @@ public class JZhsActivity extends AppCompatActivity {
                 startActivity(intent2);
                 JZhsActivity.this.finish();
                 break;
+            case R.id.action_back:
+                JZhsActivity.this.finish();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

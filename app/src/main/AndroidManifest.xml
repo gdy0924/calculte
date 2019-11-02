@@ -2,25 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.calculate">
 
+    <uses-permission android:name="android.permission.SET_ORIENTATION_ORIENTATION">
+    </uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:configChanges="orientation|keyboardHidden|layoutDirection|screenSize">
         <activity
             android:name=".DWhsActivity"
             android:label="@string/title_activity_dwhs"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".JZhsActivity"
             android:label="@string/title_activity_jzhs"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="sensor">
+            android:configChanges="orientation|keyboardHidden|layoutDirection|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

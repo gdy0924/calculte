@@ -26,14 +26,14 @@ public class DWhsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         final Button bn0 = (Button) findViewById(R.id.button0);
         final Button bn1 = (Button) findViewById(R.id.button1);
@@ -58,6 +58,7 @@ public class DWhsActivity extends AppCompatActivity {
         final Button bn_l = (Button) findViewById(R.id.button_l);
         final Button bn_ml = (Button) findViewById(R.id.button_ml);
         final Button bn_blank = (Button) findViewById(R.id.button_blank);
+        final Button bn_point = (Button) findViewById(R.id.button_point);
         final Button bn_result = (Button) findViewById(R.id.button_result);
         final EditText editText = (EditText) findViewById(R.id.edit_text);
 
@@ -190,16 +191,164 @@ public class DWhsActivity extends AppCompatActivity {
                 editText.setSelection(editText.getText().length());
             }
         });
+        bn_km.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = editText.getText().toString();
+                editText.setText(str + bn_km.getText().toString());
+                editText.setSelection(editText.getText().length());
+            }
+        });
+        bn_nm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = editText.getText().toString();
+                editText.setText(str + bn_nm.getText().toString());
+                editText.setSelection(editText.getText().length());
+            }
+        });
+        bn_lfm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = editText.getText().toString();
+                editText.setText(str + bn_lfm.getText().toString());
+                editText.setSelection(editText.getText().length());
+            }
+        });
+        bn_lflm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = editText.getText().toString();
+                editText.setText(str + bn_lflm.getText().toString());
+                editText.setSelection(editText.getText().length());
+            }
+        });
+        bn_lffm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = editText.getText().toString();
+                editText.setText(str + bn_lffm.getText().toString());
+                editText.setSelection(editText.getText().length());
+            }
+        });
+        bn_ml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = editText.getText().toString();
+                editText.setText(str + bn_ml.getText().toString());
+                editText.setSelection(editText.getText().length());
+            }
+        });
+        bn_l.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = editText.getText().toString();
+                editText.setText(str + bn_l.getText().toString());
+                editText.setSelection(editText.getText().length());
+            }
+        });
 
+        bn_point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = editText.getText().toString();
+                editText.setText(str + bn_point.getText().toString());
+                editText.setSelection(editText.getText().length());
+            }
+        });
 
         bn_result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String str = editText.getText().toString();
-
+                double result=main(str);
+                //String arrays[] =main(str);
+                //editText.setText(str + bn_result.getText().toString()+result);
+                //double a=main(str);
+                editText.setText(str + bn_result.getText().toString()+result);
+                editText.setSelection(editText.getText().length());
             }
         });
 
+    }
+
+
+    public static double main(String s) {
+        String arrays[] = get(s);
+        double num=Double.parseDouble(arrays[0]);
+        double mid=getNum(num,arrays[2]);
+        double result=getResult(mid,arrays[4]);
+        return result;
+    }
+//    public static double main(String s){
+//        String arrays[]=get(s);
+//        double num=Double.parseDouble(arrays[0]);
+//        return num;
+//    }
+
+    public static String[] get(String s) {
+        String array[] = s.split(" ");
+        return array;
+    }
+
+    public static double getNum(double num,String s) {
+        double result = 0;
+        if(s.equals("nm")||s.equals("mm")||s.equals("cm")||s.equals("m")||s.equals("km")) {
+            if(s.equals("nm")) {
+                result=num/10000000;
+            }else if(s.equals("mm")) {
+                result=num/10;
+            }else if(s.equals("cm")) {
+                result=num;
+            }else if(s.equals("m")) {
+                result=num*100;
+            }else if(s.equals("km")) {
+                result=num*100000;
+            }
+        }else {
+            if(s.equals("ml")) {
+                result=num/1000;
+            }else if(s.equals("l")) {
+                result=num;
+            }else if(s.equals("cm³")) {
+                result=num/1000;
+            }else if(s.equals("dm³")) {
+                result=num;
+            }else if(s.equals("m³")) {
+                result=num*1000;
+            }
+        }
+        return result;
+    }
+
+    public static double getResult(double num,String s) {
+        double result=0;
+        if(s.equals("nm")||s.equals("mm")||s.equals("cm")||s.equals("m")||s.equals("km")) {
+            if(s.equals("nm")) {
+                result=num*10000000;
+            }else if(s.equals("mm")) {
+                result=num*10;
+            }else if(s.equals("cm")) {
+                result=num;
+            }else if(s.equals("m")) {
+                result=num/100;
+            }else if(s.equals("km")) {
+                result=num/100000;
+            }
+        }else {
+            if(s.equals("ml")) {
+                result=num*1000;
+            }else if(s.equals("l")) {
+                result=num;
+            }else if(s.equals("cm³")) {
+                result=num*1000;
+            }else if(s.equals("dm³")) {
+                result=num;
+            }else if(s.equals("m³")) {
+                result=num/1000;
+            }
+        }
+        return result;
     }
 
     @Override
@@ -226,6 +375,9 @@ public class DWhsActivity extends AppCompatActivity {
                 Intent intent2 = new Intent();
                 intent2.setClass(DWhsActivity.this, JZhsActivity.class);
                 startActivity(intent2);
+                DWhsActivity.this.finish();
+                break;
+            case R.id.action_back:
                 DWhsActivity.this.finish();
                 break;
         }
