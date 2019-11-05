@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -26,15 +27,6 @@ public class JZhsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_jzhs);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         final Button bn0=(Button)findViewById(R.id.button0);
         final Button bn1=(Button)findViewById(R.id.button1);
@@ -320,11 +312,14 @@ public class JZhsActivity extends AppCompatActivity {
                 JZhsActivity.this.finish();
                 break;
             case R.id.action_help:
-                Toast.makeText(this, "这是帮助。", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(JZhsActivity.this);
+                builder.setMessage("这是帮助");//显示的消息内容
+                builder.setTitle("HELP");//对话框标题
+                builder.show();
                 break;
             case R.id.action_dwhs:
                 Intent intent2 = new Intent();
-                intent2.setClass(JZhsActivity.this, DWhsActivity.class);
+                intent2.setClass(JZhsActivity.this, DWActivity.class);
                 startActivity(intent2);
                 JZhsActivity.this.finish();
                 break;

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -17,23 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class DWhsActivity extends AppCompatActivity {
+public class DWActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dwhs);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         final Button bn0 = (Button) findViewById(R.id.button0);
         final Button bn1 = (Button) findViewById(R.id.button1);
@@ -262,9 +252,6 @@ public class DWhsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String str = editText.getText().toString();
                 double result=main(str);
-                //String arrays[] =main(str);
-                //editText.setText(str + bn_result.getText().toString()+result);
-                //double a=main(str);
                 editText.setText(str + bn_result.getText().toString()+result);
                 editText.setSelection(editText.getText().length());
             }
@@ -280,11 +267,6 @@ public class DWhsActivity extends AppCompatActivity {
         double result=getResult(mid,arrays[4]);
         return result;
     }
-//    public static double main(String s){
-//        String arrays[]=get(s);
-//        double num=Double.parseDouble(arrays[0]);
-//        return num;
-//    }
 
     public static String[] get(String s) {
         String array[] = s.split(" ");
@@ -364,21 +346,24 @@ public class DWhsActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_main:
                 Intent intent1 = new Intent();
-                intent1.setClass(DWhsActivity.this, MainActivity.class);
+                intent1.setClass(DWActivity.this, MainActivity.class);
                 startActivity(intent1);
-                DWhsActivity.this.finish();
+                DWActivity.this.finish();
                 break;
             case R.id.action_help:
-                Toast.makeText(this, "这是帮助。", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(DWActivity.this);
+                builder.setMessage("这是帮助");//显示的消息内容
+                builder.setTitle("HELP");//对话框标题
+                builder.show();
                 break;
             case R.id.action_jzhs:
                 Intent intent2 = new Intent();
-                intent2.setClass(DWhsActivity.this, JZhsActivity.class);
+                intent2.setClass(DWActivity.this, JZhsActivity.class);
                 startActivity(intent2);
-                DWhsActivity.this.finish();
+                DWActivity.this.finish();
                 break;
             case R.id.action_back:
-                DWhsActivity.this.finish();
+                DWActivity.this.finish();
                 break;
         }
         return super.onOptionsItemSelected(item);

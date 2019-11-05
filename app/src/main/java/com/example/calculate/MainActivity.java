@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
             final Button bn_tan = (Button) findViewById(R.id.button_tan);
             final Button bn_cos = (Button) findViewById(R.id.button_cos);
             final Button bn_sin = (Button) findViewById(R.id.button_sin);
+            final Button bn_PI = (Button) findViewById(R.id.button_PI);
+            final Button bn_yu = (Button) findViewById(R.id.button_yu);
             final Button bn_result = (Button) findViewById(R.id.button_result);
             final EditText editText = (EditText) findViewById(R.id.edit_text);
 
@@ -193,14 +195,23 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     String str = editText.getText().toString();
                     String result=null;
-                    if(str.contains("tan")){
+                    if(str.contains("tan")&&str.contains("Π")==false){
                         double a=getTan(str);
                         result=a+"";
-                    }else if(str.contains("cos")){
+                    }else if(str.contains("cos")&&str.contains("Π")==false){
                         double a=getCos(str);
                         result=a+"";
-                    }else if(str.contains("sin")){
+                    }else if(str.contains("sin")&&str.contains("Π")==false){
                         double a=getSin(str);
+                        result=a+"";
+                    }else if(str.contains("tan")&&str.contains("Π")){
+                        double a=getTanPI(str);
+                        result=a+"";
+                    }else if(str.contains("cos")&&str.contains("Π")){
+                        double a=getCosPI(str);
+                        result=a+"";
+                    }else if(str.contains("sin")&&str.contains("Π")){
+                        double a=getSinPI(str);
                         result=a+"";
                     }else {
                         result=getresult(str);
@@ -249,6 +260,23 @@ public class MainActivity extends AppCompatActivity {
                     editText.setSelection(editText.getText().length());
                 }
             });
+            bn_PI.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str + bn_PI.getText().toString());
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+            bn_yu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str + bn_yu.getText().toString());
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+
         }else{
             setContentView(R.layout.activity_main);
             final Button bn0 = (Button) findViewById(R.id.button0);
@@ -460,7 +488,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    //判断操作符优先级
+
     public int priority (String s){
         if ("+".equals(s) || "-".equals(s)) {
             return 1;
@@ -469,7 +497,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //将栈内单字符粘成字符串
+
     public void linkString (Stack < String > stack) {
         if (stack.peek().equals("#")) {
             return;
@@ -488,12 +516,11 @@ public class MainActivity extends AppCompatActivity {
         number.delete(0, number.length());
     }
 
-    //计算运算式
+    //计算
     public void calculate (Stack < String > numStack, Stack < String > oprStack){
-        double res = 0;        //弹出右操作数上的#并将其转为double计算
+        double res = 0;
         numStack.pop();
         double rightNum = Double.parseDouble(numStack.pop());
-        //弹出左操作数上的#并将其转为double计算
         numStack.pop();
         double leftNum = Double.parseDouble(numStack.pop());
         String opr = oprStack.pop();
@@ -512,7 +539,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 break;
-        }                //将计算结果压栈
+        }
         numStack.push(String.valueOf(res));
         numStack.push("#");
     }
@@ -563,6 +590,25 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
+    public double getCosPI(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(0));
+        double result=Math.cos(Math.PI/a);
+        return result;
+    }
+    public double getTanPI(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(0));
+        double result=Math.tan(Math.PI/a);
+        return result;
+    }
+    public double getSinPI(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(0));
+        double result=Math.sin(Math.PI/a);
+        return result;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -584,21 +630,15 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.action_dwhs:
                 Intent intent2 = new Intent();
-                intent2.setClass(MainActivity.this, DWhsActivity.class);
+                intent2.setClass(MainActivity.this, DWActivity.class);
                 startActivity(intent2);
                 MainActivity.this.finish();
                 break;
             case R.id.action_help:
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("这是帮助")//显示的消息内容
-                .setTitle("HELP");//对话框标题
-//                builder.setPositiveButton("确定", new DialogInterface().OnClickListener(){
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which){
-//                    Toast.makeText(MainActivity.this, "用户按下了确认按钮", Toast.LENGTH_LONG).show();
-//                }
-//                });
-            builder.show();
+                builder.setMessage("这是帮助");
+                builder.setTitle("HELP");
+               builder.show();
                 break;
             case R.id.action_back:
                 MainActivity.this.finish();
