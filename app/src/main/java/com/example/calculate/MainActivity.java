@@ -1,5 +1,6 @@
 package com.example.calculate;
 
+import java.math.BigDecimal;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuView;
@@ -58,6 +59,14 @@ public class MainActivity extends AppCompatActivity {
             final Button bn_sin = (Button) findViewById(R.id.button_sin);
             final Button bn_PI = (Button) findViewById(R.id.button_PI);
             final Button bn_yu = (Button) findViewById(R.id.button_yu);
+            final Button bn_jiecheng = (Button) findViewById(R.id.button_jiecheng);
+            final Button bn_daoshu = (Button) findViewById(R.id.button_doshu);
+            final Button bn_pingfang = (Button) findViewById(R.id.button_pingfang);
+            final Button bn_sancifang = (Button) findViewById(R.id.button_sancifang);
+            final Button bn_genhao = (Button) findViewById(R.id.button_genhao);
+            final Button bn_ln = (Button) findViewById(R.id.button_ln);
+            final Button bn_log = (Button) findViewById(R.id.button_log);
+            final Button bn_point = (Button) findViewById(R.id.button_point);
             final Button bn_result = (Button) findViewById(R.id.button_result);
             final EditText editText = (EditText) findViewById(R.id.edit_text);
 
@@ -213,6 +222,30 @@ public class MainActivity extends AppCompatActivity {
                     }else if(str.contains("sin")&&str.contains("Π")){
                         double a=getSinPI(str);
                         result=a+"";
+                    }else if(str.contains("²")){
+                        double a=getPingfang(str);
+                        result=a+"";
+                    }else if(str.contains("³")){
+                        double a=getSancifang(str);
+                        result=a+"";
+                    }else if(str.contains("ln")){
+                        double a=getln(str);
+                        result=a+"";
+                    }else if(str.contains("log")){
+                        double a=getlog(str);
+                        result=a+"";
+                    }else if(str.contains("√")){
+                        double a=getGenhao(str);
+                        result=a+"";
+                    }else if(str.contains("!")){
+                        double a=getJiecheng(str);
+                        result=a+"";
+                    }else if(str.contains("%")){
+                        double a=getYu(str);
+                        result=a+"";
+                    }else if(str.contains("1/")){
+                        double a=getDaoshu(str);
+                        result=a+"";
                     }else {
                         result=getresult(str);
                     }
@@ -273,6 +306,70 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     String str = editText.getText().toString();
                     editText.setText(str + bn_yu.getText().toString());
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+            bn_jiecheng.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str +"!");
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+            bn_daoshu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str +"1/");
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+            bn_pingfang.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str +"²");
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+            bn_sancifang.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str +"³");
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+            bn_genhao.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str +"√");
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+            bn_ln.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str + bn_ln.getText().toString());
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+            bn_log.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str + bn_log.getText().toString());
+                    editText.setSelection(editText.getText().length());
+                }
+            });
+            bn_point.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String str = editText.getText().toString();
+                    editText.setText(str + bn_point.getText().toString());
                     editText.setSelection(editText.getText().length());
                 }
             });
@@ -441,7 +538,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     String str = editText.getText().toString();
-                    String result = getResult(str);
+                    String result = getresult(str);
                     editText.setText(str + bn_result.getText().toString() + result);
                     editText.setSelection(editText.getText().length());
                 }
@@ -449,101 +546,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String getResult (String temp){
-        Stack<String> numStack = new Stack<String>();
-        numStack.push("#");
-        Stack<String> oprStack = new Stack<String>();
-        String[] ss = new String[temp.length()];
-        for (int i = 0; i < temp.length(); i++) {
-            ss[i] = temp.substring(i, i + 1);
-        }
-        for (String s : ss) {
-            if (isOpr(s)) {
-                linkString(numStack);
-                if (oprStack.isEmpty()) {
-                    oprStack.push(s);
-                } else {
-                    while (!oprStack.isEmpty() && priority(s) <= priority(oprStack.peek())) {
-                        linkString(numStack);
-                        calculate(numStack, oprStack);
-                    }
-                    oprStack.push(s);
-                }
-            } else {
-                numStack.push(s);
-            }
-        }
-        while (!oprStack.isEmpty()) {
-            linkString(numStack);
-            calculate(numStack, oprStack);
-        }
-        numStack.pop();
-        return numStack.peek();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+
+        return true;
     }
 
-    public boolean isOpr (String s){
-        if ("+".equals(s) || "-".equals(s) || "×".equals(s) || "÷".equals(s)) {
-            return true;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_jzhs:
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, JZhsActivity.class);
+                startActivity(intent);
+                MainActivity.this.finish();
+                break;
+            case R.id.action_dwhs:
+                Intent intent2 = new Intent();
+                intent2.setClass(MainActivity.this, DWActivity.class);
+                startActivity(intent2);
+                MainActivity.this.finish();
+                break;
+            case R.id.action_help:
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("这是帮助");
+                builder.setTitle("HELP");
+                builder.show();
+                break;
+            case R.id.action_back:
+                MainActivity.this.finish();
+                break;
         }
-        return false;
+        return super.onOptionsItemSelected(item);
     }
-
-
-    public int priority (String s){
-        if ("+".equals(s) || "-".equals(s)) {
-            return 1;
-        } else {
-            return 2;
-        }
-    }
-
-
-    public void linkString (Stack < String > stack) {
-        if (stack.peek().equals("#")) {
-            return;
-        }
-        StringBuilder number = new StringBuilder();
-        while (true) {
-            String s = stack.peek();
-            if (s.equals("#")) {
-                break;
-            }
-            number.insert(0, s);
-            stack.pop();
-        }
-        stack.push(number.toString());
-        stack.push("#");
-        number.delete(0, number.length());
-    }
-
-    //计算
-    public void calculate (Stack < String > numStack, Stack < String > oprStack){
-        double res = 0;
-        numStack.pop();
-        double rightNum = Double.parseDouble(numStack.pop());
-        numStack.pop();
-        double leftNum = Double.parseDouble(numStack.pop());
-        String opr = oprStack.pop();
-        switch (opr) {
-            case "+":
-                res = leftNum + rightNum;
-                break;
-            case "-":
-                res = leftNum - rightNum;
-                break;
-            case "×":
-                res = leftNum * rightNum;
-                break;
-            case "÷":
-                res = leftNum / rightNum;
-                break;
-            default:
-                break;
-        }
-        numStack.push(String.valueOf(res));
-        numStack.push("#");
-    }
-
 
     public static List<String> getList(String s) {
         List<String> list = new ArrayList<String>();
@@ -609,49 +647,73 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-
-        return true;
+    public double getPingfang(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(0));
+        double result=a*a;
+        return result;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.action_jzhs:
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, JZhsActivity.class);
-                startActivity(intent);
-                MainActivity.this.finish();
-                break;
-            case R.id.action_dwhs:
-                Intent intent2 = new Intent();
-                intent2.setClass(MainActivity.this, DWActivity.class);
-                startActivity(intent2);
-                MainActivity.this.finish();
-                break;
-            case R.id.action_help:
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("这是帮助");
-                builder.setTitle("HELP");
-               builder.show();
-                break;
-            case R.id.action_back:
-                MainActivity.this.finish();
-                break;
+    public double getSancifang(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(0));
+        double result=a*a*a;
+        return result;
+    }
+
+    public double getGenhao(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(0));
+        double result=Math.sqrt(a);
+        return result;
+    }
+
+    public double getDaoshu(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(1));
+        double result=1/a;
+        return result;
+    }
+
+    public double getln(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(0));
+        double result=Math.log(a);
+        return result;
+    }
+
+    public double getlog(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(0));
+        double b=Double.parseDouble(str.get(1));
+        double result=Math.log(b) / Math.log(a);
+        return  result;
+    }
+
+    public double getJiecheng(String s){
+        List<String> str=getList(s);
+        int a= Integer.parseInt(str.get(0));
+        int b=1;
+        for(int i=1;i<=a;i++)
+        {
+            b*=i;
         }
-        return super.onOptionsItemSelected(item);
+        double result=(double)b;
+        return result;
+    }
+
+    public double getYu(String s){
+        List<String> str=getList(s);
+        double a=Double.parseDouble(str.get(0));
+        double result=a/100;
+        return result;
     }
 
 
     public static String getresult(String s){
         List<String>  str=expressionToList(s);
         List<String>  str1=parseToSuffixExpression(str);
-        int results=GetResult(str1);
+        BigDecimal results=GetResult(str1);
         String result=results+"";
         return result;
     }
@@ -700,7 +762,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static boolean isNumber(String num){
-        return num.matches("\\d+");
+        if(num.contains("+")==false&&num.contains("-")==false&&num.contains("×")==false&&num.contains("÷")==false&&num.contains("(")==false&&num.contains(")")==false)
+            return true;
+        else
+            return false;
     }
 
 
@@ -718,12 +783,12 @@ public class MainActivity extends AppCompatActivity {
         List<String> list = new ArrayList<>();
         do{
             char ch = expression.charAt(index);
-            if(ch < 47 || ch > 58){
+            if(ch < 46 || ch > 58){
                 index ++ ;
                 list.add(ch+"");
-            }else if(ch >= 47 && ch <= 58){
+            }else if(ch >= 46 && ch <= 58){
                 String str = "";
-                while (index < expression.length() && expression.charAt(index) >=47 && expression.charAt(index) <= 58){
+                while (index < expression.length() && expression.charAt(index) >=46 && expression.charAt(index) <= 58){
                     str += expression.charAt(index);
                     index ++;
                 }
@@ -734,24 +799,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private static int GetResult(List<String> list) {
-        Stack<Integer> stack = new Stack<>();
+    private static BigDecimal GetResult(List<String> list) {
+        Stack<BigDecimal> stack = new Stack<>();
         for(int i=0; i<list.size(); i++){
             String item = list.get(i);
-            if(item.matches("\\d+")){
-                stack.push(Integer.parseInt(item));
+            if(isNumber(item)){
+                stack.push(new BigDecimal(item));
             }else {
-                int num2 = stack.pop();
-                int num1 = stack.pop();
-                int res = 0;
+                BigDecimal num2 = stack.pop();
+                BigDecimal num1 = stack.pop();
+                BigDecimal res = null;
                 if(item.equals("+")){
-                    res = num1 + num2;
+                    res = num2.add(num1);
                 }else if(item.equals("-")){
-                    res = num1 - num2;
+                    res = num1.subtract(num2);
                 }else if(item.equals("×")){
-                    res = num1 * num2;
+                    res = num1.multiply(num2);
                 }else if(item.equals("÷")){
-                    res = num1 / num2;
+                    res = num1.divide(num2);
                 }else {
                     throw new RuntimeException ("运算符错误！");
                 }
